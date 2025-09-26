@@ -116,12 +116,50 @@ punctuator:
 
 key_binder:
   import_preset: default
+  bindings:
+#      - { when: has_menu, accept: comma, send: 2 }  # 候选2 用逗号选择 （修改的时候不要多加或少加空格，跟前面的对齐就好了）
+#      - { when: has_menu, accept: period, send: 3 } # 候选3 用句号选择
+      - { when: has_menu, accept: semicolon, send: 2 }  # 候选2 用分号
+      - { when: has_menu, accept: apostrophe, send: 3 } # 候选3 用单引号
+
+      # 上下翻页 [ ]
+      - { when: has_menu, accept: bracketleft, send: Page_Up }
+      - { when: has_menu, accept: bracketright, send: Page_Down }
+
+      # 上下翻页 - =
+#      - { when: has_menu, accept: minus, send: Page_Up }
+#      - { when: has_menu, accept: equal, send: Page_Down }
+      
+      # 上下翻页 tab
+      - { when: has_menu, accept: Shift+Tab, send: Page_Up }
+      - { when: has_menu, accept: Tab, send: Page_Down }
+
+      # 回车清码
+#      - { when: composing, accept: Return, send: Escape }
+
+      # emacs key bindings, copy from https://github.com/rime/rime-prelude/blob/master/key_bindings.yaml
+      - { when: composing, accept: Control+p, send: Up }
+      - { when: composing, accept: Control+n, send: Down }
+      - { when: composing, accept: Control+b, send: Left }
+      - { when: composing, accept: Control+f, send: Right }
+      - { when: composing, accept: Control+a, send: Home }
+      - { when: composing, accept: Control+e, send: End }
+      - { when: composing, accept: Control+d, send: Delete }
+      - { when: composing, accept: Control+k, send: Shift+Delete }
+      - { when: composing, accept: Control+h, send: BackSpace }
+      - { when: composing, accept: Control+g, send: Escape }
+      - { when: composing, accept: Control+bracketleft, send: Escape }
+      - { when: composing, accept: Alt+v, send: Page_Up }
+      - { when: composing, accept: Control+v, send: Page_Down }
 
 recognizer:
   import_preset: default
   patterns:
 #    punct: "^/([0-9]+[a-z]*|[a-z]+)$" # 注意前方需要有4个空格，跟下面对齐
     reverse_lookup: "^z[a-z]*'?$" # 反查词条的正则
+    email: "^[-_.0-9A-Za-z]+@.*$"
+    uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
+    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:|localhost).*$|^[a-z]+[.].+$"
 
 # 重复上一次输入
 repeat_last_input:
