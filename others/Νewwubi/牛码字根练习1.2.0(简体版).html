@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"> 
+<title>牛码字根练习</title>
+<script>
+var root_map = {
+    "a": ["工", "匚", "𡕒", "艹", "廿", "𠀎", "", "", "", "", "丌", "廾", "七", "戈"],
+    "b": ["子", "了", "耳", "也", "阝", "卩", "", "", "", "凵", "<齿㊦>", "屮", "", "乃", "𠄎", "皮", "孑", "巜"],
+    "c": ["又", "", "", "巴", "<至㊦>", "厶", "予", "矛", "", "叉", "马"],
+    "d": ["大", "⽯", "", "戊", "<辰㊤>", "厂", "", "丆", "镸", "", "丰", "古", "犬", "三"],
+    "e": ["月", "⺝", "", "豸", "臼", "力", "爫", "犭", "", "", "", "", "", "⺽", "", "", "毛", "用", "彡"],
+    "f": ["土", "", "十", "耂", "<卖㊤>", "", "", "士", "寸", "雨", "坴", "二"],
+    "g": ["王", "", "五", "一", "", "", "", "㇀", "", "兀", "瓦", ""],
+    "h": ["目", "", "", "", "⺊", "臣", "𦣞", "龰", "<走之底>", "亅", "", "卜", "上", "", "韦", "止", "丨", "⺞"],
+    "i": ["水", "氺", "", "", "小", "", "", "⺍", "", "乑", "㡀", "", "", "", "少", "州", "氵"],
+    "j": ["日", "曰", "𫩏", "早", "⺜", "", "", "虫", "〢", "刂"],
+    "k": ["口", "川", "", "", "", "〣", "<免㊦>"],
+    "l": ["田", "", "囬", "⼞", "四", "罒", "", "<豆㊦>", "", "黑", "皿", "足", "甲", "", "〇"],
+    "m": ["山", "", "", "贝", "冂", "⺆" , "⽱", "", "𦉫", "", ""],
+    "n": ["已", "巳", "己", "", "", "𡰪", "𠃜", "忄", "心", "<亥㊦>", "", "", "<㠯㊨>", "", "", "<司无口>", "𪜊", "片", "尸", "羽", "𡿨", "爿", "乙"],
+    "o": ["火", "广", "𠂭", "⾤", "米", "", "", "", "户", "", "为", "业", "灬"],
+    "p": ["之", "辶", "廴", "冖", "宀", "㓁", "", "<塞㊤>𡨄", "", "礻", "衤", "穴"],
+    "q": ["金", "钅", "", "儿", "", "", "勹", "", "", "", "夕", "", "", "我", "鸟"],
+    "r": ["白", "手", "", "扌", "", "", "", "", "<瓜无厶>", "𠂋", "斤", "乂", "<敫㊧>", "身", "牛", ""],
+    "s": ["木", "朩", "丁", "覀", "", "西", "甫"],
+    "t": ["禾", "彳", "牜", "", "", "", "⺙", "夂", "饣", "生", "丿"],
+    "u": ["立", "丷", "䒑", "门", "六", "", "", "疒", "", "", "", "丬", "", "辛", "半", "产", "⺀", "冫", "首"],
+    "v": ["女", "九", "刀", "彐", "⺕", "", "", "", "艮", "尹", "丸", "巛", "飠", "𩙿"],
+    "w": ["人", "亻", "几", "八", "", "癶", "𠘨", ""],
+    "x": ["母", "毌", "", "彑", "匕", "", "", "弓", "纟", "", "幺", "糹"],
+    "y": ["言", "讠", "文", "亠", "", "吂", "", "方", "丶", "㇏"],
+}
+
+var dbroot_map = [
+        {"wa": ["代"]},
+        {"wv": ["食"]},
+        {"dx": ["龙"]},
+        {"fx": ["戋"]},
+        {"fh": ["干"]},
+        {"gi": ["求"]},
+        {"gb": ["屯"]},
+        {"hd": ["非"]},
+        {"us": ["酋"]},
+        {"ux": ["兹"]},
+        {"os": ["麻"]},
+        {"ox": ["鹿"]},
+        {"mf": ["由"]},
+        {"cc": ["叒", "厽"]},
+        {"rl": [""]},
+        {"wl": ["登"]},
+        {"ay": ["雚"]},
+        {"cx":["能"]},
+        {"ow":["䧹"]},
+        {"ll":["畾"]},
+        {"dw":["雁"]},
+        {"rq":["<鬼字底>"]}
+    ]
+
+
+function main() {
+    raw_area = document.getElementById("raw_area")
+    user_input = document.getElementById("user_input")
+    main_top = document.getElementById("maintop")
+    speed_label = document.getElementById("speedlabel")
+    total_label = document.getElementById("totallabel")
+    speed_timer = null
+    word_count = 0
+    start_time = 0
+    cur_input_max = 0
+    cur_input_index = 0
+    cur_tab = 0
+    total_words = []
+    total_index = 0
+
+    display_release_note()
+}
+
+function display_release_note() {
+    reset_timer()
+    clear_tabs_background(999)
+    clear_raw_area()
+    enable_user_input(false)
+    raw_area.style.fontSize = "16px"
+    raw_area.style.fontHeight = "16px"
+    var span = document.createElement("span")
+    span.innerText = hereDoc(function () {/*
+注意：本练习工具是在MoGu大佬的“徐码字根简码练习_2.5”修改而来，感谢MoGu大佬。本练习工具需要安装"牛码飞机3代pc字体"以显示全部字根
+
+2020-10-09 1.2.0 （简体版）
+	新增 "首""飠""𩙿"
+	取消 "成"
+
+2020-09-07 更新 1.1.2（简体版）
+	"鬼"改为"<鬼字底>"
+
+2020-09-07 更新 1.1.0（简体版）
+	修正部分错误
+	新增加了双码字根"鬼""雁"
+
+2020-08-30 更新 1.0.1（简体版）
+	取消"<四个折>""<缺点戊>""<臣内>""<𦣞内>""飠","𩙿"""
+	增加 "坴"""<免㊦>""⺞""登""雚""畾""能""戊""<免㊦>""臣""𦣞"
+
+2020-07-07 更新 0.2.6
+	新增"<舞㊤>、甲、〇"
+
+2020-06-14 更新 0.2.5
+    新增"<壹㊤>、<皮㊤>、<鹿㊤>、<亦㊦>、<延心>"
+
+2020-06-14 更新 0.2.2:
+    新补3个双码字根“飠、𩙿、”
+
+2020-06-14 更新 0.2.1:
+    增加双码字根
+
+2020-06-14 更新 0.2:
+	增加“<令下>”、“<丘上>”、“<气上>”、“<三个竖>〣”字根
+
+2020-06-13 更新 0.1:
+    使用 新锐牛码码表
+    添加新锐牛码字根
+
+    */})
+    raw_area.appendChild(span)
+}
+
+function display_help() {
+    reset_timer()
+    clear_tabs_background(0)
+    clear_raw_area()
+    enable_user_input(false)
+    raw_area.style.fontSize = "16px"
+    raw_area.style.fontHeight = "16px"
+    var span = document.createElement("span")
+    span.innerText = hereDoc(function () {/*
+牛码五笔编码规则
+    1.常规汉字（键面字根以外的汉字），依前三后一顺序键入字根代码，不足四码加识别码。
+    2.单拆字根（蓝色字根）与双码字根（紫色字根）成独体字时，按常规汉字拆分取码。如非hd/hdhd、麻oss/ossi、片thg/thgn、予cs/csj、矛cst/cste、马cg/cgd。             
+    3.普通字根（黑色字根）成独体字时，报户口+首次末笔画取码，不足四码加空格，如米oyty、二fgg_。
+    4.偏旁部首，报户口+首次末笔画取码，不足四码补l，直至四码。如犭etnt、亻wthl、丿ttll。
+          
+牛码五笔补码规则
+    牛码五笔补码采用交叉识别码，规则与传统五笔相同，特别说明以下几点：
+    1.二根字全码三码如遇重码或者与常用字三简冲突时，非首选字保留其三码设二简，另提供补打识别码的编码，如仕字可以补打识别码g上屏。非首字一般为非常用字，可以选重上屏，也可以补打识别码
+上屏，不会降低输入效率，该规则多提供一种补打识别码的选字方式。
+    2.半包围和全包围的字识别码取被包围部分的末笔。如近rpk、迫rpd。
+    3.半包围和全包围以外的字，识别码取汉字正常书写顺序的末笔，而不是取汉字末字根的末笔。例如爪rhi不是rhk，，必nti不是nte，贼mady不是madt。
+    */})
+    raw_area.appendChild(span)
+}
+//功能选择
+function choose_root(val) {
+    clear_tabs_background(val)
+    enable_user_input(true)
+    raw_area.style.fontSize = "45px"
+    raw_area.style.fontHeight = "45px"
+    user_input.removeAttribute("disabled")
+    user_input.focus()
+    total_index = 0
+    word_count = 0
+    cur_tab = val
+    speed_label.innerText = "速度：0.00字/分"
+
+    var all_words
+    switch (val) {
+        case 1:
+            all_words = get_newWb_words('g', 'f', 'd', 's', 'a')
+            break
+        case 2:
+            all_words = get_newWb_words('h', 'j', 'k', 'l', 'm')
+            break
+        case 3:
+            all_words = get_newWb_words('t', 'r', 'e', 'w', 'q')
+            break
+        case 4:
+            all_words = get_newWb_words('y', 'u', 'i', 'o', 'p')
+            break
+        case 5:
+            all_words = get_newWb_words('n', 'b', 'v', 'c', 'x')
+            break
+        case 6:
+            all_words = get_all_words()
+            break
+        case 7:
+            all_words = get_dbnewWb_words()
+            break
+        default:
+            alert("impossible")
+    }
+
+    var option = get_option()
+    if (option == 0) {
+        total_words = all_words
+    } else if (option == 1) {
+        var arr = gen_shuttled(all_words.length)
+        for (var i = 0; i < arr.length; i++) {
+            arr[i] = all_words[arr[i]]
+        }
+        total_words = arr
+    } else {
+        var arr = gen_randoms(get_setup_count("total_count"), 0, all_words.length)
+        for (var i = 0; i < arr.length; i++) {
+            arr[i] = all_words[arr[i]]
+        }
+        total_words = arr
+    }
+
+    next_words()
+    key_hint()
+    total_label.innerText = "\t进度：0/" + total_words.length + "字"
+    
+    reset_timer()
+    //console.log("words: ", total_words.length)
+}
+
+function timeout() {
+    speed_timer = setTimeout("timeout()", 500)
+    var speed = 0.0
+    var elapsed = new Date().getTime() - start_time
+    if (word_count > 0 && elapsed > 0) {
+        speed = word_count * 60 * 1000 / elapsed
+        speed_label.innerText = "速度：" + speed.toFixed(2) + "字/分"
+    }
+}
+
+function start_timer() {
+    if (speed_timer == null) {
+        start_time = new Date().getTime()
+        timeout()
+    }
+}
+
+function reset_timer() {
+    if (speed_timer != null) {
+        clearTimeout(speed_timer)
+        speed_timer = null
+    }
+}
+
+function get_dbnewWb_words() {
+    var words = new Array()
+    for (var i = 0; i < dbroot_map.length; i++)
+    {
+        var objs = dbroot_map[i]
+        for (var key in objs) {
+            var vlus = objs[key]
+            for (var j = 0; j < vlus.length; j++) {
+                words.push({"key": key, "code": vlus[j]})
+            }
+        }
+    }
+    return words
+}
+
+function get_newWb_words(one, two, third, four, five) {
+    var words = new Array()
+    var curobj = root_map[one]
+    for (var idx in curobj) {
+        words.push({"key": one, "code": curobj[idx]})
+    }
+    curobj = root_map[two]
+    for (var idx in curobj) {
+        words.push({"key": two, "code": curobj[idx]})
+    }
+    curobj = root_map[third]
+    for (var idx in curobj) {
+        words.push({"key": third, "code": curobj[idx]})
+    }
+    curobj = root_map[four]
+    for (var idx in curobj) {
+        words.push({"key": four, "code": curobj[idx]})
+    }
+    curobj = root_map[five]
+    for (var idx in curobj) {
+        words.push({"key": five, "code": curobj[idx]})
+    }
+    return words
+}
+function get_all_words() {
+    var words = new Array()
+    var s1 = "gfdsahjklmtrewqyuiopnbvcx"
+    var s2array = s1.split('')
+    for (var i = 0; i < 25; i++) {
+        var curobj = root_map[s2array[i]]
+        for (var idx in curobj) {
+            words.push({"key": s2array[i], "code": curobj[idx]})
+        }
+    }
+    return words
+}
+/*
+//字根展示
+function get_root_words(begch, endch) {
+    var words = new Array()
+    var achar_code = 'a'.charCodeAt(0)
+    if (endch == ';') {
+	    var beg = begch.charCodeAt(0) - achar_code
+	    var end = 'z'.charCodeAt(0) - achar_code + 1 + 1
+    } else {
+	    var beg = begch.charCodeAt(0) - achar_code
+	    var end = endch.charCodeAt(0) - achar_code + 1
+    }
+    for (var i = beg; i < end; i++) {
+        var objs = root_map[i]
+        if (endch == ';' && i >= 26) {
+        	var key = ';'
+        } else {
+        	var key = String.fromCharCode(achar_code + i)
+        }
+        var curobj = objs[key]
+        for (var idx in curobj) {
+            words.push({ "key": key, "code": curobj[idx]})
+        }
+    }
+    return words
+}*/
+
+function next_words() {
+    var last_count = total_words.length - total_index
+    if (last_count <= 0) {
+        return false
+    }
+
+    var word_need = Math.min(last_count, get_setup_count("one_time_count"))
+    cur_input_max = word_need
+    cur_input_index = 0
+    clear_raw_area()
+
+    var target_words = total_words.slice(total_index, total_index + word_need)
+    for (idx in target_words) {
+        var span = document.createElement("span")
+        word = target_words[idx]
+        span.innerText = word.code + " "
+        span.setAttribute("key", word.key)
+        span.id = "word" + idx
+        span.style.color = "lightgrey"
+        raw_area.appendChild(span)
+    }
+    total_index += word_need
+
+    return true
+}
+
+function get_setup_count(id) {
+    var node = document.getElementById(id)
+    return parseInt(node.value)
+}
+
+function gen_shuttled(size) {
+    var array = new Array()
+    for (var i = 0; i < size; i++) {
+        array.push(i)
+    }
+    for (var i = 0; i < size; i++) {
+        var idx = Math.floor(Math.random() * size)
+        var tmp = array[idx]
+        array[idx] = array[i]
+        array[i] = tmp
+    }
+    return array
+}
+
+function gen_randoms(size, beg, end) {
+    var count = end - beg
+    var array = new Array()
+    for (var i = 0; i < size; i++) {
+        array.push(Math.floor(Math.random() * count + beg))
+    }
+    return array
+}
+
+function get_option() {
+    var radios = document.getElementsByName("radiobutton")
+    for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            return i
+        }
+    }
+}
+
+function is_hint_option_checked() {
+    var checked = document.getElementsByName("key_hint_checkbox")[0].checked
+    return checked
+}
+
+function key_hint() {
+    if (user_input.getAttribute("disabled") != "true") {
+        if (is_hint_option_checked()) {
+            var word = document.getElementById("word" + cur_input_index)
+            var key = word.getAttribute("key")
+            user_input.setAttribute("placeholder", key)
+        } else {
+            user_input.setAttribute("placeholder", "")
+        }
+    }
+}
+
+function user_input_change() {
+    if (cur_input_index >= cur_input_max)
+        return
+
+    var word = document.getElementById("word" + cur_input_index)
+    var key = word.getAttribute("key")
+    var val = user_input.value
+    if (val[val.length-1] == " " || val[val.length-1] == ";" || val.length == key.length) {
+        if (val.toLowerCase() == key) {
+            start_timer()
+            cur_input_index++
+            word_count++
+            total_label.innerText = "\t进度：" + word_count + "/" + total_words.length + "字"
+            word.style.color = "black"
+            user_input.setAttribute("placeholder", "")
+        } else {
+            word.style.color = "red"
+            user_input.setAttribute("placeholder", key)
+        }
+        user_input.value = ""
+
+        if (cur_input_index >= cur_input_max) {
+            if (!next_words()) {
+                user_input.setAttribute("disabled", "true")
+                reset_timer()
+            }
+        }
+        
+        key_hint()
+    }
+    // console.log(word)
+    // console.log(word.getAttribute("key"))
+}
+
+function hereDoc(f) {　
+    return f.toString().replace(/^[^\/]+\/\*!?\s?/, '').replace(/\*\/[^\/]+$/, '');
+}
+
+function clear_tabs_background(activate_idx) {
+    var tabs = document.getElementsByClassName("tab")
+    for (var idx in tabs) {
+        if (tabs[idx].style) {
+            tabs[idx].style.backgroundColor = "#70abe6"
+            tabs[idx].style.boxShadow="0 0 black"
+        }
+    }
+    if (activate_idx != null) {
+        var tab = document.getElementById("tab" + activate_idx)
+        tab.style.backgroundColor = "white"
+        tab.style.boxShadow="inset 0 0 7px 0px black"
+    }
+}
+
+function msover(idx) {
+    //console.log(idx)
+    var tab = document.getElementById(idx);
+    if (!/inset/.exec(tab.style.boxShadow)){
+        tab.style.backgroundColor = "white"
+        tab.style.boxShadow = "0 0 10px 0px black"
+    } else {
+        tab.style.backgroundColor = "white"
+        tab.style.boxShadow="inset 0 0 7px 0px black"
+    }
+}
+
+function msdown(idx) {
+    var tab = document.getElementById(idx);
+    if (!/inset/.exec(tab.style.boxShadow)){
+        tab.style.backgroundColor = "white"
+        tab.style.boxShadow = "inset 0 0 7px 0px black"
+    }
+}
+
+function msout(idx) {
+    var tab = document.getElementById(idx);
+    if (!/inset/.exec(tab.style.boxShadow))
+    {
+        tab.style.backgroundColor = "#70abe6"
+        tab.style.boxShadow="0 0 black"
+    } else {
+        tab.style.backgroundColor = "white"
+        tab.style.boxShadow="inset 0 0 7px 0px black"
+    }
+}
+
+function enable_user_input(val) {
+    if (val) {
+        user_input.style.display = "block"
+        main_top.style.display = "block"
+
+    } else {
+        user_input.style.display = "none"
+        main_top.style.display = "none"
+    }
+    user_input.value = ""
+}
+
+function clear_raw_area() {
+    while (raw_area.hasChildNodes()) {
+        raw_area.removeChild(raw_area.lastChild);
+    }
+}
+
+</script>
+<style>
+html { font-family: 'TH-Sy-P0', 'TH-Sy-P2', 'TH-Sy-P16', 'sim-ch_n5100', 'Times New Roman', Times, serif; }
+
+aside {
+    text-align: center;
+    width: 160px;
+    height: 100%;
+    background-color: #70abe6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 130%;
+    cursor: default;
+}
+
+.textarea {
+    width: 98%;
+    min-height: 300px;
+    padding: 8px;
+    outline: 0;
+    border: none;
+    word-wrap: normal;
+    overflow-y: visible;
+    resize: none;
+
+    border-color: rgba(82, 168, 236, 0.8);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3), 0 0 16px rgba(82, 168, 236, 1);
+}
+
+.spinner, #user_input {
+    padding: 5px;
+    outline: 0;
+    border: 2px solid #a0b3d6;
+
+    border-color: rgba(82, 168, 236, 0.8);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 0 16px rgba(82, 168, 236, 0.6);
+}
+
+/*.tab:hover {
+    background-color: white !important;
+    box-shadow: 0 0 10px 0px black !important;
+}
+
+.tab:active {
+    background-color: white !important;
+    box-shadow:inset 0 0 7px 0px black !important;
+}
+
+.tab:visited {
+    background-color: white !important;
+    box-shadow:inset 0 0 7px 0px black !important;
+}*/
+
+.tab {
+    padding: 6px;
+}
+
+#content {
+    padding-left: 170px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+}
+
+#maintop {
+    padding-left: 170px;
+    line-height: 35px;
+}
+
+#aside_title {
+    font-size: 220%;
+    padding: 20px;
+    text-shadow: 8px 7px 14px black;
+    box-shadow: 0 0 0px 0px black;
+    color: #80c5f9;
+    font-family: "楷体";
+}
+
+#author {
+    font-size: 100%;
+    padding: 4px;
+    padding-top: 15px;
+    color: #fbfcff;
+    text-shadow: 8px 7px 14px black;
+    text-align: center;
+    /* background-color: white; */
+    box-shadow: inset 0 0 0px 0px black;
+}
+
+#user_input {
+    margin-top: 20px;
+    align-self: center;
+    height: 80px;
+    width: 90px;
+    margin-left: 42%;
+    align-content: center;
+    font-size: 300%;
+}
+</style> 
+</head>
+
+<body onload="main()">
+    <aside>
+        <div id="aside_title">牛碼</div>
+        
+        <div class="tab" id="tab0" onmousedown="msdown('tab0')" onmouseout="msout('tab0')" onmouseover="msover('tab0')" onclick="display_help()">快速入门</div>
+        <div class="tab" id="tab1" onmousedown="msdown('tab1')" onmouseout="msout('tab1')" onmouseover="msover('tab1')" onclick="choose_root(1)">横区字根</div>
+        <div class="tab" id="tab2" onmousedown="msdown('tab2')" onmouseout="msout('tab2')" onmouseover="msover('tab2')" onclick="choose_root(2)">竖区字根</div>
+        <div class="tab" id="tab3" onmousedown="msdown('tab3')" onmouseout="msout('tab3')" onmouseover="msover('tab3')" onclick="choose_root(3)">撇区字根</div>
+        <div class="tab" id="tab4" onmousedown="msdown('tab4')" onmouseout="msout('tab4')" onmouseover="msover('tab4')" onclick="choose_root(4)">捺区字根</div>
+        <div class="tab" id="tab5" onmousedown="msdown('tab5')" onmouseout="msout('tab5')" onmouseover="msover('tab5')" onclick="choose_root(5)">折区字根</div>
+        <div class="tab" id="tab6" onmousedown="msdown('tab6')" onmouseout="msout('tab6')" onmouseover="msover('tab6')" onclick="choose_root(6)">全部字根</div>
+        <div class="tab" id="tab7" onmousedown="msdown('tab7')" onmouseout="msout('tab7')" onmouseover="msover('tab7')" onclick="choose_root(7)">双码字根</div>
+        <div class="tab" id="tab999" onmousedown="msdown('tab999')" onmouseout="msout('tab999')" onmouseover="msover('tab999')" onclick="display_release_note()">更新历史</div>
+        <div id="author">作者: 北泽无鱼</div>
+    </aside> 
+    <div id="maintop">
+        <br>
+        <label>单次字根数：</label>
+        <input id="one_time_count" class="spinner" type="number", min="10", max="500", value="30">
+        <label>练习字根数：</label>
+        <input id="total_count" class="spinner" type="number", min="10", max="500", value="120">
+        </br>
+        <input type="radio" name="radiobutton" onclick="choose_root(cur_tab)" checked="">顺序单次</input>
+        <input type="radio" name="radiobutton" onclick="choose_root(cur_tab)">乱序单次</input>
+        <input type="radio" name="radiobutton" onclick="choose_root(cur_tab)">乱序重复</input>
+        <input type="checkbox" name="key_hint_checkbox" onclick="key_hint()">编码提示</input>
+        <br>
+        <label id="totallabel"></label>
+        <label id="speedlabel"></label>
+        </br>
+    </div>
+    <div id="content">
+        <div class="textarea", id="raw_area"></div>
+        <input id="user_input" oninput="user_input_change()">
+    </div>
+</body>
+</html>
