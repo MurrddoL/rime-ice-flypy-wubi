@@ -15,6 +15,7 @@ schema_list:
   - schema: double_pinyin_flypy    # 小鹤双拼
   - schema: wubi86_jidian  # 五笔极点
   - schema: flypy   # 小鹤音形
+  - schema: niumawb   # 牛码五笔
 
 
 # 菜单
