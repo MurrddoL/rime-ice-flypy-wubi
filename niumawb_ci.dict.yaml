@@ -1,0 +1,29 @@
+name: niumawb_ci       #自定义词库
+version: "2024.09.16 周一"
+sort: by_weight
+use_preset_vocabulary: false
+columns:
+  - text
+  - code
+  - weight
+  - stem
+encoder:
+  rules:
+    - length_equal: 2
+      formula: "AaAbBaBb"
+    - length_equal: 3
+      formula: "AaBaCaCb"
+    - length_in_range: [4, 99]
+      formula: "AaBaCaZa"
+#该词库为自己的小词库，可以在这里任意加词。
+#注意格式：如下
+#牛码五笔输入法	rdgi	60	方案名字QQ群38288512
+#字段之间的间隔是tab符，不是空格。①词组Tab②码Tab③权重Tab④备注
+#①词组-为自己想要添加的任何一个字或词
+#②码-为牛码拆字规律的码
+#③权重-数字大的候选会靠前，跟主码表通用
+#④备注-可有可无，跟据自己喜好酌情添加
+...
+我很喜欢这个牛码五笔输入法	qtfi	60
+牛码交流QQ群38288512	rhdc	60
+牛码交流QQ群38288512	rdgt	60
