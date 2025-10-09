@@ -88,6 +88,14 @@ translator:
 # 2. 如果配置了台湾繁体，就会将上一步生成的繁体进一步处理
 # 3. 根据这个文件：https://github.com/BYVoid/OpenCC/blob/master/data/dictionary/TWVariants.txt 把台湾与正常繁体不同的地方转成台湾版本的字，比如 “床”
 
+melt_eng:
+  dictionary: melt_eng     # 挂载词库 melt_eng.dict.yaml
+  enable_sentence: false   # 禁止造句
+  enable_user_dict: false  # 禁用用户词典
+  initial_quality: 1.1     # 初始权重
+  comment_format:          # 自定义提示码
+    - xform/.*//           # 清空提示码
+
 tradition:
   #  opencc_config: s2t.json  # 简 -> 繁
   opencc_config: s2hk.json  # 繁 -> 香港
