@@ -14,7 +14,6 @@ schema_list:
   - schema: t9                     # 九宫格（仓输入法）
   - schema: double_pinyin_flypy    # 小鹤双拼
   - schema: wubi86_jidian  # 五笔极点
-  - schema: flypy   # 小鹤音形
   - schema: niumawb   # 牛码五笔
 
 
