@@ -146,6 +146,9 @@ recognizer:
   patterns:
 #    punct: "^/([0-9]+[a-z]*|[a-z]+)$" # 注意前方需要有4个空格，跟下面对齐
     reverse_lookup: "^z[a-z]*'?$" # 反查词条的正则
+    email: "^[-_.0-9A-Za-z]+@.*$"
+    uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
+    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:|localhost).*$|^[a-z]+[.].+$"
 
 # 重复上一次输入
 repeat_last_input:
