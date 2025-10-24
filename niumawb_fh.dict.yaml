@@ -108,7 +108,8 @@ zby	🙄
 zby	😒
 zbz	[闭嘴]
 zbz	🤐
-zc	“
+zc	$
+zc	^
 zc	©
 zcb	∷
 zcbl	∷
@@ -180,7 +181,7 @@ zdydy	≧
 zdyh	＝
 zdyh	＞
 zdyh	∷
-ze	『
+ze	@
 zem	👿
 zem	😈
 zepxl	ε
@@ -271,6 +272,11 @@ zjx	[奸笑]
 zjy	[惊讶]
 zjz	[机智]
 zk	(
+zk	[
+zk	{
+zk	【
+zk	<
+zk	《
 zka	😊
 zkai	χ
 zkai	Χ
@@ -310,7 +316,18 @@ zkun	[困]
 zkun	😪
 zkx	ξ
 zkx	Ξ
+zk	(
+zk	[
+zk	{
+zk	【
+zk	<
+zk	《
 zl	)
+zl	]
+zl	}
+zl	】
+zl	>
+zl	》
 zlfm	m³
 zlg	㏒
 zlh	[流汗]
@@ -330,7 +347,6 @@ zmg	[玫瑰]
 zmiu	μ
 zmiu	Μ
 zmm	😕
-zmt	：“
 zn	？
 zn	sn囧
 znan	♂
@@ -478,7 +494,7 @@ zsy	……”
 zsy	Ⅺ
 zsy	∈
 zsy	∴
-zt	“
+zt	’
 ztao	τ
 ztao	Τ
 ztel	℡
@@ -496,7 +512,9 @@ zty	[天啊]
 zty	😮
 zty	🤤
 ztz	😇
-zv	”
+zu	”
+zv	&
+zv	*
 zw	？
 zwa	[哇]
 zwc	[旺柴]
@@ -522,6 +540,8 @@ zwy	😶
 zwy	🙈
 zwz	🤭
 zwz	🙊
+zx	/
+zx	#
 zxg	[西瓜]
 zxh	＿
 zxia	[吓]
@@ -536,7 +556,7 @@ zxu	🤫
 zxy	＜
 zxydy	≤
 zxydy	≦
-zy	”
+zy	“
 zydy	≈
 zydy	≒
 zye	[耶]
