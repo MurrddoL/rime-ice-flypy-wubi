@@ -1,0 +1,25 @@
+# Rime schema settings
+# encoding: utf-8
+name: jdh    # 主词库。尽量不要删这里面的词。
+version: "2024.09.16 周一"
+sort: by_weight
+columns:
+  - text
+  - code
+  - weight
+  - stem
+encoder:
+  rules:
+    - length_equal: 2
+      formula: "AaAbBaBb"
+    - length_equal: 3
+      formula: "AaBaCaCb"
+    - length_in_range: [4, 10]
+      formula: "AaBaCaZa"
+import_tables:
+
+...
+真  vf
+发  fa
+想  xl
+相  xlw
