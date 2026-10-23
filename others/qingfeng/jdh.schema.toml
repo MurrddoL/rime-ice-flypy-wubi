@@ -11,6 +11,8 @@ type = "codetable"
 [engine.codetable]
 max_code_length = 4
 base_sort = "natural"
+auto_commit_at_full = true
+auto_commit_min_len = 4
 input_chars = "a-z"
 leading_chars = "a-z"
 z_key_repeat = false
