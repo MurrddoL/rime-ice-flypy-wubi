@@ -1,27 +1,8 @@
-#牛码五笔作者：陈自鸣
-#牛码五笔交流群：38288512
-name: niumawb    # 主词库。尽量不要删这里面的词。
-version: "2024.09.16 周一"
-sort: by_weight
-columns:
-  - text
-  - code
-  - weight
-  - stem
-encoder:
-  rules:
-    - length_equal: 2
-      formula: "AaAbBaBb"
-    - length_equal: 3
-      formula: "AaBaCaCb"
-    - length_in_range: [4, 10]
-      formula: "AaBaCaZa"
-import_tables:
-  - niumawb_ci    #自定义短语词库
-  - niumawb_fh    #符号词库
-#  - 理论上这里可以添加很多自定义词库
-
-#该词库为牛码官方词库，非必要建议不要改动。牛码五笔QQ群：38288512。2024.08.01 Thursday
+# Rime dictionary
+---
+name: niumawb
+version: "1.0"
+columns: [text, code]
 ...
 工	a	aa
 花	a	aw
