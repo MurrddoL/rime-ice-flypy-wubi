@@ -1,0 +1,23 @@
+[schema]
+id = "niumawb"
+name = "牛码五笔"
+icon_label = "牛"
+version = "1.0"
+description = "牛码五笔主词库；保持原码表的同码候选顺序"
+
+[engine]
+type = "codetable"
+
+[engine.codetable]
+max_code_length = 4
+base_sort = "natural"
+input_chars = "a-y"
+leading_chars = "a-y"
+
+[[dictionaries]]
+id = "niumawb_main"
+label = "牛码五笔主词库"
+path = "niumawb/niumawb.dict.yaml"
+type = "rime_codetable"
+default = true
+base_order = 0
