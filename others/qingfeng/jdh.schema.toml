@@ -1,0 +1,26 @@
+[schema]
+id = "jdh"
+name = "简单鹤"
+icon_label = "鹤"
+version = "1.0"
+description = "简单鹤原始码表（包含 z 编码）"
+
+[engine]
+type = "codetable"
+
+[engine.codetable]
+max_code_length = 4
+base_sort = "natural"
+input_chars = "a-z"
+leading_chars = "a-z"
+z_key_repeat = false
+wildcard = false
+short_code_yield_level = 0
+
+[[dictionaries]]
+id = "jdh_main"
+label = "简单鹤主词库"
+path = "jdh/jdh.dict.yaml"
+type = "rime_codetable"
+default = true
+base_order = 0
