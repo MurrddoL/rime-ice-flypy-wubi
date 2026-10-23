@@ -1,0 +1,13 @@
+[schema]
+id = "niumawb_pinyin"
+name = "牛码五笔拼音混输"
+icon_label = "混"
+version = "1.0"
+description = "牛码五笔码表优先，拼音兜底"
+
+[engine]
+type = "mixed"
+
+[engine.mixed]
+primary_schema = "niumawb"
+secondary_schema = "pinyin"
